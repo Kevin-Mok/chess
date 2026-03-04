@@ -49,7 +49,12 @@ AI-first engineering focus: this project is a local multi-engine + LLM analysis 
   - eval before/after,
   - expected-score before/after,
   - engine disagreement/cost evidence,
-  - concise coaching lesson.
+  - deep human coaching block:
+    - what you likely thought,
+    - what you missed on the board,
+    - how to decide better next time,
+    - practice habit,
+    - concise lesson.
 - Markdown output path control with `--output-md`, including stdout mode (`--output-md -`).
 
 ## AI Tooling Stack
@@ -65,6 +70,9 @@ This project is intentionally local-first: engine and LLM tooling run on-device 
 - `llama-cli` + local GGUF model:
   - Optional post-processing layer in `--cause-mode forensic-llm`.
   - Rewrites forensic cause/lesson text while preserving factual constraints.
+- `ollama` + `qwen3:14b` (default rewrite path):
+  - Preferred local rewrite backend for `--cause-mode forensic-llm`.
+  - Produces deeper human-coaching wording while preserving deterministic guardrails.
 
 ### AI/Engine Execution Modes
 - `heuristic`:
@@ -75,7 +83,9 @@ This project is intentionally local-first: engine and LLM tooling run on-device 
   - Uses Lc0-ready retries and MultiPV-aware timeout budgets for more stable `--forensic-multipv` runs.
 - `forensic-llm`:
   - Same forensic evidence plus optional local LLM rewriting.
-  - Falls back to deterministic forensic text if LLM binary/model are missing.
+  - Defaults to `ollama` with model `qwen3:14b` (fallback to `llama-cli` if configured).
+  - Enforces human-only coaching language in lesson/thought/process text (no engine/PV/eval wording).
+  - Falls back to deterministic forensic text if no rewrite runtime is available.
 
 ### Why This Tooling Matters
 - Reproducibility:
@@ -106,6 +116,30 @@ python3 analyze_pgn.py games/2026-03-03-comeback-vs-gaju33333.pgn \
 # forensic + local llm rewrite (optional local model)
 python3 analyze_pgn.py games/2026-03-03-comeback-vs-gaju33333.pgn \
   --cause-mode forensic-llm \
+  --llm-backend ollama \
+  --ollama-model qwen3:14b
+
+# live forensic-llm stream for 3.4-play-well
+# writes:
+# - analysis/live/3.4-play-well.progress.md
+# - analysis/live/3.4-play-well.lessons.md
+# - analysis/live/3.4-play-well.stockfish.md
+# - analysis/live/3.4-play-well.thinking.md
+bash scripts/test_play_well_live.sh
+
+# quick test pass-through args (single forensic event)
+bash scripts/test_play_well_live.sh --swing-max-events 1 --max-seconds 8
+
+# from repo root, watch all three outputs live
+tail -f /home/kevin/Documents/chess/analysis/live/3.4-play-well.progress.md
+tail -f /home/kevin/Documents/chess/analysis/live/3.4-play-well.lessons.md
+tail -f /home/kevin/Documents/chess/analysis/live/3.4-play-well.stockfish.md
+tail -f /home/kevin/Documents/chess/analysis/live/3.4-play-well.thinking.md
+
+# forensic + llama-cli fallback backend
+python3 analyze_pgn.py games/2026-03-03-comeback-vs-gaju33333.pgn \
+  --cause-mode forensic-llm \
+  --llm-backend llama-cli \
   --llama-model ~/models/gemma-3-1b-it-Q4_K_M.gguf
 ```
 
@@ -121,12 +155,20 @@ python3 analyze_pgn.py games/2026-03-03-comeback-vs-gaju33333.pgn \
   - `--lc0-path`, `--lc0-weights`
   - `--forensic-time-ms`, `--forensic-multipv`, `--forensic-max-pv-plies`
 - Optional local LLM rewrite:
+  - `--llm-backend auto|ollama|llama-cli` (default `auto`, prefers Ollama)
+  - `--ollama-host`, `--ollama-model`, `--ollama-timeout-ms` (`0` = unlimited), `--ollama-max-tokens`, `--ollama-temperature`
+  - `--llm-log-raw`, `--llm-raw-max-chars` (`0` = unlimited) for raw rewrite/thinking logs in progress streams
+  - `--llm-request-thinking` to request a `<thinking>...</thinking>` block before JSON rewrites
   - `--llama-cli-path`, `--llama-model`
   - `--llama-timeout-ms`, `--llama-max-tokens`, `--llama-temperature`
 
 ### Local Setup
 - One-command local stack bootstrap:
   - `bash scripts/install_local_ai_stack.sh`
+  - Installs `lc0` + weights and `llama-cli`; does not install Ollama.
+- For default `forensic-llm` rewrite (`ollama` + `qwen3:14b`):
+  - Run elevated setup script: `bash scripts/pull_qwen3_14b.sh`
+  - Manual fallback: start Ollama (`ollama serve`) and pull model (`ollama pull qwen3:14b`).
 - Detailed setup and troubleshooting:
   - [docs/LOCAL_AI_SETUP.md](docs/LOCAL_AI_SETUP.md)
 
@@ -147,10 +189,10 @@ Two wins with different improvement signals: fast tactical conversion and a high
 
 ## High Win% Comeback Evidence
 - From [analysis/2026-03-03-comeback-vs-gaju33333.md](analysis/2026-03-03-comeback-vs-gaju33333.md):
-  - `34. Qxc7 (op.)`: expected score `0.00 -> 1.00` (`+100.0` pts), eval `-5.28 -> 5.28`.
+  - `34. Qxc7 (op.)`: expected score `0.00 -> 1.00` (`+100.0` pts), eval `-5.19 -> 5.30`.
   - This meets the high-probability comeback condition (final expected score `1.00 >= 0.80`).
 - Same game also shows volatility before conversion:
-  - `29... Qb8 (me)`: expected score `0.72 -> 0.00` (`-72.5` pts), then later recovered to a winning state.
+  - `29... Qb8 (me)`: expected score `0.89 -> 0.00` (`-88.6` pts), then later recovered to a winning state.
 
 ### Why This Matters
 - The comeback was not a smooth conversion; the report captures both collapse risk and recovery evidence.
