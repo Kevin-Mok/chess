@@ -37,14 +37,15 @@ This is an engineering project, not only a game archive: it automates chess fore
   - Local execution avoids external API coupling for core analysis paths.
 
 ### What The Main Script Produces
-- A POV move table with W/L/D probabilities and eval deltas.
+- A POV move table with W/L/D probabilities, `me`/`opp` turn labels, and eval deltas.
 - A `## Significant Swings` block with:
   - severity,
   - expected-score before/after,
   - engine comparison (Stockfish + Lc0),
   - PV evidence,
   - concise training lesson text.
-- Markdown output to `analysis/*.md` by default, or a custom path via `--output-md`.
+- Exact terminal-result handling for checkmate/stalemate positions before swing classification.
+- Markdown output to `analysis/<game-stem>.md` by default for PGNs under `games/`, or a custom path via `--output-md`.
 
 ## AI Tooling Stack
 The stack is intentionally local-first so analysis quality and runtime behavior are measurable and reproducible.
@@ -131,6 +132,7 @@ Current artifacts highlight tactical conversion and practical game management un
 
 - Fast tactical finish in `2026-02-27-fast-checkmate`.
 - Conversion sequence in `2026-03-03-comeback-vs-gaju33333` ending in a decisive queen trade.
+- Back-rank mate win as Black vs `juliok22`, finishing a compact tactical game with `26...Re1#`.
 - Tense, drawn-out 76-move win vs `NickGen_Eral` with 88% accuracy maintained deep into the endgame.
 
 ## Highlight Games
@@ -138,6 +140,7 @@ Current artifacts highlight tactical conversion and practical game management un
 | --- | --- | --- | --- | --- | --- |
 | 2026-02-27 | Woaheee | Chess.com | Win (White, 1-0) | [Chess.com game](https://www.chess.com/game/live/165298129986?move=0) | Fast tactical finish ending with `15. Qxe7#`. |
 | 2026-03-03 | gaju33333 | Lichess | Win (Black, 0-1) | [Lichess game](https://lichess.org/nujVa4n7) | Clean conversion featuring `18...Nxb2` and `34...Qxc7`. |
+| 2026-03-11 | juliok22 | Chess.com | Win (Black, 0-1) | [Chess.com game](https://www.chess.com/game/live/165814123450) | Compact tactical highlight as Black, ending with a clean back-rank mate via `26...Re1#`. |
 | 2026-03-11 | NickGen_Eral | Lichess | Win (White, 1-0) | [Lichess game](https://lichess.org/lY26zNo7) | Long 76-move win with 88% accuracy, showing steady practical play deep into a drawn-out endgame. |
 
 ## Key Moves and Turning Points
@@ -167,11 +170,13 @@ Current `analysis/*.md` artifacts include a high-confidence conversion sequence 
 - Local artifacts:
   - [analysis/2026-02-27-fast-checkmate.md](analysis/2026-02-27-fast-checkmate.md)
   - [analysis/2026-03-03-comeback-vs-gaju33333.md](analysis/2026-03-03-comeback-vs-gaju33333.md)
+  - [analysis/3.11-back-rank-mate.md](analysis/3.11-back-rank-mate.md)
   - [analysis/3.6-tough.md](analysis/3.6-tough.md)
 
 ## How to View the Games
 - Open PGNs from `games/*.pgn` in Chess.com, Lichess, or any local PGN viewer.
 - Run `bash scripts/analyze_game.sh <game-name-or-path>` to regenerate matching markdown under `analysis/`.
+- Direct `python3 analyze_pgn.py games/<name>.pgn` runs also mirror the PGN stem under `analysis/` unless `--output-md` is set.
 - If your shell prints `command not found` for a flag (for example `--ollama-max-tokens`), the previous line likely missed a continuation character.
 
 Visual highlight:

@@ -4,6 +4,7 @@ import os
 import re
 import shutil
 import sys
+from pathlib import Path
 
 import chess
 
@@ -70,7 +71,16 @@ def resolve_pov(game, pov_player):
     return chess.WHITE, white, black, False
 
 
-def default_output_md_path(white, black, pov_name, opponent_name, pov_found):
+def default_output_md_path(pgn_path, white, black, pov_name, opponent_name, pov_found):
+    try:
+        repo_root = Path(__file__).resolve().parents[1]
+        games_dir = repo_root / "games"
+        resolved_pgn = Path(pgn_path).expanduser().resolve()
+        relative_pgn = resolved_pgn.relative_to(games_dir)
+        return os.fspath(Path(DEFAULT_ANALYSIS_DIR) / relative_pgn.with_suffix(".md"))
+    except (OSError, ValueError):
+        pass
+
     if pov_found:
         left = pov_name
         right = opponent_name
@@ -93,6 +103,28 @@ def to_pov(board, cp, mate, wdl, pov_color):
 
 def expected_score(win_pct, draw_pct):
     return (win_pct + 0.5 * draw_pct) / 100.0
+
+
+def terminal_snapshot_for_pov(board, pov_color):
+    outcome = board.outcome()
+    if outcome is None:
+        return None
+
+    if outcome.winner is None:
+        wld = (0.0, 0.0, 100.0)
+        return {
+            "wld": wld,
+            "score": expected_score(wld[0], wld[2]),
+            "eval_str": "0.00",
+        }
+
+    pov_won = outcome.winner == pov_color
+    wld = (100.0, 0.0, 0.0) if pov_won else (0.0, 100.0, 0.0)
+    return {
+        "wld": wld,
+        "score": expected_score(wld[0], wld[2]),
+        "eval_str": f"M{'+' if pov_won else '-'}0",
+    }
 
 
 def should_track_swing(swing_scope, mover_is_pov):
@@ -394,4 +426,3 @@ def enforce_human_field(text, fallback, max_chars=MAX_COACHING_CHARS):
         if cleaned and cleaned[-1] not in ".!?":
             cleaned += "."
     return cleaned
-

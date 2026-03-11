@@ -11,8 +11,8 @@ Commit the current dirty worktree as a small sequence of coherent commits, verif
 ## Plan
 - [x] Add this ExecPlan file and keep it updated as work progresses.
 - [x] Run targeted verification for terminal scoring, output-path mapping, and markdown contract behavior.
-- [ ] Commit and push the repo-rule update for informal game notes.
-- [ ] Commit and push the informal note file by itself.
+- [x] Commit and push the repo-rule update for informal game notes.
+- [x] Commit and push the informal note file by itself.
 - [ ] Commit and push the analyzer, artifact, test, README, and related plan files together.
 - [ ] Commit and push the reusable README game highlight prompt doc with its plan file.
 

@@ -26,6 +26,7 @@ from .common import (
     should_track_swing,
     swing_polarity_label,
     swing_severity,
+    terminal_snapshot_for_pov,
     to_pov,
 )
 from .constants import (
@@ -116,7 +117,7 @@ def render_significant_swings(
         print(
             (
                 f"  Impact: me={swing_polarity_label(me_delta)} ({me_delta:+.1f} pts), "
-                f"op.={swing_polarity_label(op_delta)} ({op_delta:+.1f} pts)"
+                f"opp={swing_polarity_label(op_delta)} ({op_delta:+.1f} pts)"
             ),
             file=out,
             flush=True,
@@ -303,6 +304,7 @@ def main(
         pov_side = "White" if pov_color == chess.WHITE else "Black"
         if output_md is None:
             output_md = default_output_md_path(
+                pgn_path,
                 white,
                 black,
                 pov_name,
@@ -343,13 +345,13 @@ def main(
         if pov_found:
             print(f"- POV: `{pov_name}` ({pov_side})", file=out, flush=True)
             print(
-                f"- Turn labels: `me` = `{pov_name}`, `op.` = `{opponent_name}`",
+                f"- Turn labels: `me` = `{pov_name}`, `opp` = `{opponent_name}`",
                 file=out,
                 flush=True,
             )
         else:
             print("- POV: `White` (fallback)", file=out, flush=True)
-            print(f"- Turn labels: `me` = `{white}`, `op.` = `{black}`", file=out, flush=True)
+            print(f"- Turn labels: `me` = `{white}`, `opp` = `{black}`", file=out, flush=True)
 
         board = game.board()
         ply = 0
@@ -395,23 +397,28 @@ def main(
             else:
                 eval_str = "?"
 
-            if wdl is not None:
-                total = wdl[0] + wdl[1] + wdl[2]
-                w, d, l = pct(wdl[0], total), pct(wdl[1], total), pct(wdl[2], total)
-            elif cp is not None:
-                w, d, l = approx_wdl_from_cp(cp)
-            else:
-                w, d, l = 0.0, 100.0, 0.0
-
             move_no = (ply + 1) // 2
             prefix = f"{move_no}." if ply % 2 == 1 else f"{move_no}..."
             mover_color = chess.WHITE if ply % 2 == 1 else chess.BLACK
-            turn_label = "me" if mover_color == pov_color else "op."
+            turn_label = "me" if mover_color == pov_color else "opp"
             mover_is_pov = mover_color == pov_color
+            terminal_snapshot = terminal_snapshot_for_pov(board, pov_color)
+            if terminal_snapshot is not None:
+                w, l, d = terminal_snapshot["wld"]
+                eval_str = terminal_snapshot["eval_str"]
+                score = terminal_snapshot["score"]
+            else:
+                if wdl is not None:
+                    total = wdl[0] + wdl[1] + wdl[2]
+                    w, d, l = pct(wdl[0], total), pct(wdl[1], total), pct(wdl[2], total)
+                elif cp is not None:
+                    w, d, l = approx_wdl_from_cp(cp)
+                else:
+                    w, d, l = 0.0, 100.0, 0.0
 
-            score = None
-            if mate is not None or cp is not None or wdl is not None:
-                score = expected_score(w, d)
+                score = None
+                if mate is not None or cp is not None or wdl is not None:
+                    score = expected_score(w, d)
 
             if score is not None:
                 current_scored_ply = {
