@@ -13,8 +13,14 @@ Commit the current dirty worktree as a small sequence of coherent commits, verif
 - [x] Run targeted verification for terminal scoring, output-path mapping, and markdown contract behavior.
 - [x] Commit and push the repo-rule update for informal game notes.
 - [x] Commit and push the informal note file by itself.
-- [ ] Commit and push the analyzer, artifact, test, README, and related plan files together.
+- [x] Commit and push the analyzer, artifact, test, README, and related plan files together.
 - [ ] Commit and push the reusable README game highlight prompt doc with its plan file.
 
 ## Review
-- Pending.
+- Verification completed before the analyzer commit:
+  - `PYTHONPATH=. .venv/bin/pytest tests/test_terminal_scoring.py tests/test_output_path_mapping.py tests/test_markdown_contract.py`
+  - `.venv/bin/python analyze_pgn.py games/3.11-back-rank-mate.pgn`
+- Pushed commits:
+  - `docs(agents): preserve informal game notes under games`
+  - `chore(notes): add 3.11 midgame reminder`
+  - `fix(analyzer): map repo PGNs to analysis and score terminal mates exactly`
