@@ -163,6 +163,15 @@ When analyzing PGNs under `games/scratch-games/`, output markdown must be writte
 
 - For `scripts/analyze_game.sh`, preserve relative subpath under `games/` when mapping to `analysis/`.
 
+## Informal Game Notes (Required)
+
+Sometimes `games/` contains informal `.md` note files with partial move lists or reminders for later review rather than PGN artifacts.
+
+- Preserve these files as-is unless the user explicitly asks to remove or rewrite them.
+- Do not analyze them, rename them, convert them to PGN, or include them in README evidence unless the user explicitly asks.
+- Do not treat these note files as README trigger paths or as missing/invalid analysis inputs.
+- If a task is about committing or organizing dirty files, keep these note files separate from analyzer/README behavior changes unless the user explicitly wants them grouped.
+
 ## Chess View Requirements
 
 `## Chess Improvement View` + following sections must include:
