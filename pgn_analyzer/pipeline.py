@@ -9,6 +9,7 @@ import chess
 import chess.pgn
 
 from .common import (
+    build_how_game_was_won_summary,
     cp_delta_to_text,
     default_output_md_path,
     expected_score,
@@ -189,6 +190,18 @@ def render_significant_swings(
             print("", file=out, flush=True)
 
 
+def render_how_game_was_won(out, summary):
+    if not summary:
+        return
+
+    print("", file=out, flush=True)
+    print("## How The Game Was Won", file=out, flush=True)
+    print("", file=out, flush=True)
+    print(f"- {summary['result']}", file=out, flush=True)
+    print(f"- {summary['sequence']}", file=out, flush=True)
+    print(f"- {summary['detail']}", file=out, flush=True)
+
+
 def validate_forensic_stack(cause_mode, lc0_path, lc0_weights):
     if cause_mode not in ("forensic", "forensic-llm"):
         return
@@ -358,6 +371,7 @@ def main(
         previous_scored_ply = None
         swing_events = []
         table_rows = []
+        move_history = []
         for move in game.mainline_moves():
             board_before = board.copy(stack=False)
             san = board.san(move)
@@ -402,6 +416,14 @@ def main(
             mover_color = chess.WHITE if ply % 2 == 1 else chess.BLACK
             turn_label = "me" if mover_color == pov_color else "opp"
             mover_is_pov = mover_color == pov_color
+            move_history.append(
+                {
+                    "ply": ply,
+                    "prefix": prefix,
+                    "san": san,
+                    "to_square": move.to_square,
+                }
+            )
             terminal_snapshot = terminal_snapshot_for_pov(board, pov_color)
             if terminal_snapshot is not None:
                 w, l, d = terminal_snapshot["wld"]
@@ -644,6 +666,10 @@ def main(
                 phase_elapsed = time.perf_counter() - phase_start
                 log(f"Completed forensic phase in {phase_elapsed:.1f}s.")
 
+        render_how_game_was_won(
+            out,
+            build_how_game_was_won_summary(game, board, move_history),
+        )
         render_significant_swings(
             out,
             swing_events,

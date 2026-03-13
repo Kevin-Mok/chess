@@ -1,0 +1,55 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2026.03.13"]
+[Round "-"]
+[White "SoloPistol"]
+[Black "Abhijeetnegi123"]
+[Result "1-0"]
+[CurrentPosition "3rkbnr/p3pQpp/1p6/2p1N3/3P4/2N1B3/PPn2PPP/R4RK1 b k - 0 14"]
+[Timezone "UTC"]
+[ECO "B07"]
+[ECOUrl "https://www.chess.com/openings/Pirc-Defense-2.d4"]
+[UTCDate "2026.03.13"]
+[UTCTime "17:22:52"]
+[WhiteElo "424"]
+[BlackElo "368"]
+[TimeControl "600"]
+[Termination "SoloPistol won by checkmate"]
+[StartTime "17:22:52"]
+[EndDate "2026.03.13"]
+[EndTime "17:28:36"]
+[Link "https://www.chess.com/analysis/game/live/165901228132/analysis?move=23"]
+[WhiteUrl "https://images.chesscomfiles.com/uploads/v1/user/530287979.a9a8a530.50x50o.fb8c76af6660.jpg"]
+[WhiteCountry "3"]
+[WhiteTitle ""]
+[BlackUrl "https://images.chesscomfiles.com/uploads/v1/user/315941025.81ed5884.50x50o.6159d29def8d.jpg"]
+[BlackCountry "69"]
+[BlackTitle ""]
+
+1. e4 {[%clk 0:09:58.5]} 1... d6 {[%clk 0:09:54.7]} 2. d4 {[%clk 0:09:55.3]}
+2... d5 $6 {[%clk 0:09:51.5][%c_effect
+d5;square;d5;type;Inaccuracy;persistent;true]} 3. exd5 {[%clk 0:09:50.1]} 3...
+Qxd5 {[%clk 0:09:51.1]} 4. Be3 {[%clk 0:09:35.9]} 4... b6 $6 {[%clk
+0:09:42.1][%c_effect b6;square;b6;type;Inaccuracy;persistent;true]} 5. Nc3
+{[%clk 0:09:18.3]} 5... Qd6 $6 {[%clk 0:09:34.2][%c_effect
+d6;square;d6;type;Inaccuracy;persistent;true]} 6. Bc4 $6 {[%clk
+0:08:53.2][%c_effect c4;square;c4;type;Inaccuracy;persistent;true]} 6... Ba6 $2
+{[%clk 0:09:31.5][%c_effect a6;square;a6;type;Mistake;persistent;true]} 7.
+Bxa6 $6 {[%clk 0:08:40.5][%c_effect
+a6;square;a6;type;Inaccuracy;persistent;true]} 7... Nxa6 {[%clk 0:09:29.8]} 8.
+Nf3 {[%clk 0:08:31.5]} 8... Qg6 $2 {[%clk 0:09:10.9][%c_effect
+g6;square;g6;type;Mistake;persistent;true]} 9. O-O $6 {[%clk 0:08:13.8][%c_effect
+g1;square;g1;type;Inaccuracy;persistent;true]} 9... Rd8 $6 {[%clk
+0:09:04.7][%c_effect d8;square;d8;type;Inaccuracy;persistent;true]} 10. Ne5
+{[%clk 0:08:02.5]} 10... Qf5 {[%clk 0:08:41]} 11. Qd2 $6 {[%clk
+0:07:11.5][%c_effect d2;square;d2;type;Inaccuracy;persistent;true]} 11... c5 $6
+{[%clk 0:08:39.7][%c_effect c5;square;c5;type;Inaccuracy;persistent;true]} 12.
+Qd3 $4 {[%clk 0:06:45.5][%c_effect
+d3;square;d3;type;Blunder;size;100%2525;animated;false;persistent;true]} (12.
+Qe2) 12... Nb4 $4 {[%clk 0:08:32.5][%c_effect
+b4;square;b4;type;Blunder;size;100%25;animated;false;persistent;true]} 13. Qxf5 $1
+{[%clk 0:06:25.5][%c_effect f5;square;f5;type;GreatFind;persistent;true]} 13...
+Nxc2 $2 {[%clk 0:08:06.9][%c_effect c2;square;c2;type;Mistake;persistent;true]}
+14. Qxf7# {[%clk 0:06:17.5][%c_effect
+g1;square;g1;type;Winner;animated;true,e8;square;e8;type;CheckmateBlack;animated;true]}
+1-0

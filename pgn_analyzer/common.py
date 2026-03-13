@@ -127,6 +127,160 @@ def terminal_snapshot_for_pov(board, pov_color):
     }
 
 
+def decisive_result_winner(game):
+    result = normalize_whitespace(game.headers.get("Result"))
+    white = game.headers.get("White", "?")
+    black = game.headers.get("Black", "?")
+
+    if result == "1-0":
+        return {
+            "winner_name": white,
+            "winner_color_name": "White",
+            "winner_color": chess.WHITE,
+            "loser_name": black,
+            "loser_color_name": "Black",
+            "loser_color": chess.BLACK,
+        }
+    if result == "0-1":
+        return {
+            "winner_name": black,
+            "winner_color_name": "Black",
+            "winner_color": chess.BLACK,
+            "loser_name": white,
+            "loser_color_name": "White",
+            "loser_color": chess.WHITE,
+        }
+    return None
+
+
+def normalized_termination_label(game, board):
+    sources = [
+        normalize_whitespace(game.headers.get("Termination")),
+        normalize_whitespace(game.end().comment),
+    ]
+    text = " ".join(part for part in sources if part).casefold()
+
+    if board.is_checkmate() or "checkmate" in text:
+        return "checkmate"
+    if "resign" in text:
+        return "resignation"
+    if "time" in text or "timeout" in text:
+        return "timeout"
+    if "abandon" in text:
+        return "abandonment"
+    return "a decisive result"
+
+
+def termination_sequence_suffix(termination_label, loser_color_name):
+    if termination_label == "resignation":
+        return f", after which {loser_color_name} resigned."
+    if termination_label == "timeout":
+        return f", after which {loser_color_name} ran out of time."
+    if termination_label == "abandonment":
+        return f", after which {loser_color_name} abandoned the game."
+    return " before the game ended."
+
+
+def format_supporters(squares, board):
+    labels = []
+    for square in sorted(squares):
+        piece = board.piece_at(square)
+        if piece is None:
+            continue
+        labels.append(f"the {chess.piece_name(piece.piece_type)} on `{chess.square_name(square)}`")
+    if not labels:
+        return None
+    if len(labels) == 1:
+        return labels[0]
+    return ", ".join(labels[:-1]) + f", and {labels[-1]}"
+
+
+def build_how_game_was_won_summary(game, board, move_history):
+    winner = decisive_result_winner(game)
+    if winner is None or not move_history:
+        return None
+
+    final_move = move_history[-1]
+    previous_move = move_history[-2] if len(move_history) >= 2 else None
+    termination_label = normalized_termination_label(game, board)
+    final_move_label = f"{final_move['prefix']} {final_move['san']}"
+
+    summary = {
+        "result": (
+            f"Result: `{winner['winner_name']}` beat `{winner['loser_name']}` "
+            f"by {termination_label} on `{final_move_label}`."
+        ),
+        "sequence": None,
+        "detail": None,
+    }
+
+    if termination_label == "checkmate" and previous_move is not None:
+        previous_label = f"{previous_move['prefix']} {previous_move['san']}"
+        summary["sequence"] = (
+            f"Final sequence: `{previous_label}` allowed `{final_move_label}` immediately."
+        )
+    elif previous_move is not None and termination_label in ("resignation", "timeout", "abandonment"):
+        previous_label = f"{previous_move['prefix']} {previous_move['san']}"
+        summary["sequence"] = (
+            f"Final sequence: `{previous_label}` was met by `{final_move_label}`"
+            f"{termination_sequence_suffix(termination_label, winner['loser_color_name'])}"
+        )
+    else:
+        summary["sequence"] = (
+            f"Final sequence: the last recorded move was `{final_move_label}` before the game ended."
+        )
+
+    if termination_label == "checkmate":
+        mating_square = final_move.get("to_square")
+        mating_piece = board.piece_at(mating_square) if mating_square is not None else None
+        losing_king_square = board.king(winner["loser_color"])
+        supporters = []
+        if mating_square is not None:
+            supporters = [
+                square
+                for square in board.attackers(winner["winner_color"], mating_square)
+                if square != mating_square
+            ]
+
+        piece_label = "piece"
+        square_label = "?"
+        if mating_piece is not None and mating_square is not None:
+            piece_label = chess.piece_name(mating_piece.piece_type)
+            square_label = chess.square_name(mating_square)
+
+        protected_by = format_supporters(supporters[:2], board)
+        if protected_by:
+            summary["detail"] = (
+                f"Finish detail: the {piece_label} on `{square_label}` was protected by {protected_by}, "
+                f"and {winner['loser_color_name']}'s king on `{chess.square_name(losing_king_square)}` "
+                "had no legal escape."
+            )
+        else:
+            summary["detail"] = (
+                f"Finish detail: the {piece_label} on `{square_label}` delivered mate, "
+                f"and {winner['loser_color_name']}'s king on `{chess.square_name(losing_king_square)}` "
+                "had no legal escape."
+            )
+    elif termination_label == "resignation":
+        summary["detail"] = (
+            "Finish detail: the PGN records a resignation rather than a terminal mate position."
+        )
+    elif termination_label == "timeout":
+        summary["detail"] = (
+            "Finish detail: the PGN records a time-forfeit result rather than a terminal mate position."
+        )
+    elif termination_label == "abandonment":
+        summary["detail"] = (
+            "Finish detail: the PGN records an abandonment rather than a terminal mate position."
+        )
+    else:
+        summary["detail"] = (
+            "Finish detail: the PGN records a decisive result rather than a terminal mate position."
+        )
+
+    return summary
+
+
 def should_track_swing(swing_scope, mover_is_pov):
     if swing_scope == "both":
         return True

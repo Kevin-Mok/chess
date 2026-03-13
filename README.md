@@ -37,6 +37,7 @@ This is an engineering project, not only a game archive: it automates chess fore
   - Local execution avoids external API coupling for core analysis paths.
 
 ### What The Main Script Produces
+- A `## How The Game Was Won` section for decisive games, with terminal mate geometry when the PGN ends in checkmate.
 - A POV move table with W/L/D probabilities, `me`/`opp` turn labels, and eval deltas.
 - A `## Significant Swings` block with:
   - severity,
@@ -152,9 +153,9 @@ Current artifacts highlight tactical conversion and practical game management un
 Current `analysis/*.md` artifacts include a high-confidence conversion sequence in `analysis/2026-03-03-comeback-vs-gaju33333.md` (SoloPistol POV).
 
 - From the move table:
-  - `28...Qxd8`: W/L/D `67.8/0.0/32.2` -> expected score `0.84`.
+  - `28...Qxd8`: W/L/D `45.1/0.0/54.9` -> expected score `0.73`.
   - `34...Qxc7`: W/L/D `100.0/0.0/0.0` -> expected score `1.00`.
-- Before/after snapshot: `0.84 -> 1.00` (final expected score `>= 0.80`).
+- Before/after snapshot: `0.73 -> 1.00` (final expected score `>= 0.80`).
 
 ### Why This Matters
 - Shows a clear conversion path from already-strong winning chances to a fully winning final position.
