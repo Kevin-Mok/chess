@@ -195,9 +195,11 @@ Current `analysis/*.md` artifacts include a high-confidence conversion sequence 
   - [analysis/3.11-back-rank-mate.md](analysis/3.11-back-rank-mate.md)
   - [analysis/3.11-tense-endgame.md](analysis/3.11-tense-endgame.md)
   - [analysis/14-move-checkmate-SoloPistol_vs_Abhijeetnegi123_2026.03.13.md](analysis/14-move-checkmate-SoloPistol_vs_Abhijeetnegi123_2026.03.13.md)
+  - [games/all/chess_com_games_2026-03-15_combined.pgn](games/all/chess_com_games_2026-03-15_combined.pgn)
 
 ## How to View the Games
-- Open PGNs from `games/*.pgn` in Chess.com, Lichess, or any local PGN viewer.
+- Open PGNs from `games/**/*.pgn` in Chess.com, Lichess, or any local PGN viewer.
+- The March 15 raw Chess.com export bundle is also available as one 119-game PGN at `games/all/chess_com_games_2026-03-15_combined.pgn`.
 - Run `bash scripts/analyze_game.sh <game-name-or-path>` to regenerate matching markdown under `analysis/`.
 - Direct `python3 analyze_pgn.py games/<name>.pgn` runs also mirror the PGN stem under `analysis/` unless `--output-md` is set.
 - If your shell prints `command not found` for a flag (for example `--ollama-max-tokens`), the previous line likely missed a continuation character.
