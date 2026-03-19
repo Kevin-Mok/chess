@@ -1,0 +1,42 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2026.03.19"]
+[Round "?"]
+[White "sozplayschess05"]
+[Black "SoloPistol"]
+[Result "0-1"]
+[TimeControl "600"]
+[WhiteElo "432"]
+[BlackElo "447"]
+[Termination "SoloPistol won by checkmate"]
+[ECO "D00"]
+[EndTime "15:04:11 GMT+0000"]
+[Link "https://www.chess.com/game/live/166156046882"]
+
+1. d4 {[%clk 0:09:58.8][%timestamp 12]} 1... d5 {[%clk 0:09:53][%timestamp 70]}
+2. Be3 {[%clk 0:09:55.6][%timestamp 32]} 2... Nc6 {[%clk 0:09:46.3][%timestamp
+67]} 3. Qd3 {[%clk 0:09:53.2][%timestamp 24]} 3... e6 {[%clk 0:09:33][%timestamp
+133]} 4. c4 {[%clk 0:09:48][%timestamp 52]} 4... Nf6 {[%clk
+0:09:27.2][%timestamp 58]} 5. cxd5 {[%clk 0:09:46.6][%timestamp 14]} 5... Nxd5
+{[%clk 0:09:20.1][%timestamp 71]} 6. Nc3 {[%clk 0:09:39.2][%timestamp 74]} 6...
+Nxe3 {[%clk 0:09:17][%timestamp 31]} 7. Qxe3 {[%clk 0:09:37.8][%timestamp 14]}
+7... Nxd4 {[%clk 0:08:50.8][%timestamp 262]} 8. Qd3 {[%clk 0:09:20.5][%timestamp
+173]} 8... e5 {[%clk 0:08:26][%timestamp 248]} 9. e3 {[%clk
+0:09:18.5][%timestamp 20]} 9... Ne6 {[%clk 0:08:07.3][%timestamp 187]} 10. Qb5+
+{[%clk 0:09:11.7][%timestamp 68]} 10... Bd7 {[%clk 0:07:57.9][%timestamp 94]}
+11. Qxe5 {[%clk 0:09:08.9][%timestamp 28]} 11... Bd6 {[%clk
+0:07:43.1][%timestamp 148]} 12. Qd5 {[%clk 0:09:03.1][%timestamp 58]} 12... Bb4
+{[%clk 0:06:45.4][%timestamp 577]} 13. Qxb7 {[%clk 0:08:54.9][%timestamp 82]}
+13... Rb8 {[%clk 0:06:20.1][%timestamp 253]} 14. Qxa7 {[%clk
+0:08:47.6][%timestamp 73]} 14... O-O {[%clk 0:06:06.1][%timestamp 140]} 15. a3
+{[%clk 0:08:20.6][%timestamp 270]} 15... Bc5 {[%clk 0:05:59.9][%timestamp 62]}
+16. Qa5 {[%clk 0:08:09.8][%timestamp 108]} 16... Bb6 {[%clk
+0:05:52.3][%timestamp 76]} 17. Qb4 {[%clk 0:07:58.3][%timestamp 115]} 17... Ba7
+{[%clk 0:05:18.6][%timestamp 337]} 18. Qg4 {[%clk 0:07:40.5][%timestamp 178]}
+18... Nc5 {[%clk 0:05:12.2][%timestamp 64]} 19. b4 {[%clk 0:07:36.9][%timestamp
+36]} 19... Nb3 {[%clk 0:05:02.2][%timestamp 100]} 20. Rb1 {[%clk
+0:07:26.3][%timestamp 106]} 20... Be6 {[%clk 0:04:42.3][%timestamp 199]} 21. Qf4
+{[%clk 0:07:12.2][%timestamp 141]} 21... Qd2# {[%clk 0:04:36.2][%timestamp
+61][%c_effect
+g8;square;g8;type;Winner;animated;true;keyPressed;undefined;persistent;true,e1;square;e1;type;CheckmateWhite;animated;true;keyPressed;undefined;persistent;true]}
+0-1

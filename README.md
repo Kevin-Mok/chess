@@ -143,6 +143,7 @@ Current win artifacts are highlighted from tracked PGNs plus the `## How The Gam
 - Tense 76-move win vs `NickGen_Eral`, ending with `76. Qfh4#` after a long endgame grind.
 - 14-move checkmate vs `Abhijeetnegi123`, where `13...Nxc2` allowed `14. Qxf7#` immediately.
 - 80% accuracy win vs `newbie060806` on Chess.com, a game Chess.com estimated at 1150 Elo and that finished with `45. Qbb8#`.
+- Mate win as Black vs `sozplayschess05` on Chess.com, where `21. Qf4` allowed `21...Qd2#` immediately.
 
 ## Highlight Games
 | Date | Opponent | Platform | Result | Game Link | Why it matters |
@@ -156,6 +157,7 @@ Current win artifacts are highlighted from tracked PGNs plus the `## How The Gam
 | 2026-03-15 | creppyG | Chess.com | Win (Black, 0-1) | [Chess.com analysis](https://www.chess.com/analysis/game/live/165996433052/analysis) | Move-table domination reached `100.0/0.0/0.0` by move 9 and held through `56...Qa8#`. |
 | 2026-03-15 | Ironmike3982 | Chess.com | Win (White, 1-0) | [Chess.com review](https://www.chess.com/analysis/game/live/165995086288/review?move=29&move=29&tab=review&classification=greatfind&autorun=true) | Comeback mate where `15. Bf2` lost the rook but the attack still converted with `27. Qh5#`. |
 | 2026-03-17 | newbie060806 | Chess.com | Win (White, 1-0) | [Chess.com game](https://www.chess.com/game/live/166077521478) | 80% accuracy game that Chess.com estimated at 1150 Elo, finished by `45. Qbb8#`. |
+| 2026-03-19 | sozplayschess05 | Chess.com | Win (Black, 0-1) | [Chess.com game](https://www.chess.com/game/live/166156046882) | Clean mate finish where `21. Qf4` allowed `21...Qd2#` immediately. |
 
 ## Key Moves and Turning Points
 - [**15. Qxe7#** (Chess.com analysis)](https://www.chess.com/analysis/game/live/165298129986/analysis?move=29): immediate mate after `14...Nxf1`.
@@ -167,6 +169,7 @@ Current win artifacts are highlighted from tracked PGNs plus the `## How The Gam
 - [**76. Qfh4#** (Lichess)](https://lichess.org/lY26zNo7): mate finish at the end of a 76-move endgame grind.
 - [**14. Qxf7#** (Chess.com analysis)](https://www.chess.com/analysis/game/live/165901228132/analysis?move=23): 14-move checkmate after `13...Nxc2`.
 - [**45. Qbb8#** (Chess.com game)](https://www.chess.com/game/live/166077521478): finished the March 17 win against `newbie060806` in the 80% accuracy game Chess.com estimated at 1150 Elo.
+- [**21...Qd2#** (Chess.com game)](https://www.chess.com/game/live/166156046882): immediate mate after `21. Qf4` in the March 19 win against `sozplayschess05`.
 
 ## High Win% Comeback Evidence
 Current `analysis/*.md` artifacts include a high-confidence conversion sequence in `analysis/2026-03-03-comeback-vs-gaju33333.md` (SoloPistol POV).
@@ -197,6 +200,7 @@ Current `analysis/*.md` artifacts include a high-confidence conversion sequence 
   - [Chess.com analysis: 2026-03-15 domination](https://www.chess.com/analysis/game/live/165996433052/analysis)
   - [Chess.com review: 2026-03-15](https://www.chess.com/analysis/game/live/165995086288/review?move=29&move=29&tab=review&classification=greatfind&autorun=true)
   - [Chess.com game: 2026-03-17](https://www.chess.com/game/live/166077521478)
+  - [Chess.com game: 2026-03-19](https://www.chess.com/game/live/166156046882)
   - [Lichess study chapter: 2026-03-03](https://lichess.org/study/9tKdUwCn/7y3AQeFe)
 - Local artifacts:
   - [analysis/2026-02-27-fast-checkmate.md](analysis/2026-02-27-fast-checkmate.md)
@@ -208,6 +212,7 @@ Current `analysis/*.md` artifacts include a high-confidence conversion sequence 
   - [analysis/3.11-tense-endgame.md](analysis/3.11-tense-endgame.md)
   - [analysis/14-move-checkmate-SoloPistol_vs_Abhijeetnegi123_2026.03.13.md](analysis/14-move-checkmate-SoloPistol_vs_Abhijeetnegi123_2026.03.13.md)
   - [analysis/3.17-80-accuracy.md](analysis/3.17-80-accuracy.md)
+  - [analysis/3.19-mate.md](analysis/3.19-mate.md)
   - [games/all/chess_com_games_2026-03-15_combined.pgn](games/all/chess_com_games_2026-03-15_combined.pgn)
   - [games/all/chess_com_games_2026-03-15_combined_elo_history.csv](games/all/chess_com_games_2026-03-15_combined_elo_history.csv)
 
