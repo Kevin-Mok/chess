@@ -248,13 +248,13 @@ Current `analysis/*.md` artifacts include a high-confidence conversion sequence 
 Visual highlights:
 
 <figure>
-  <img src="media/2026-03-03-lichess-comeback.gif" alt="Lichess comeback highlight">
-  <figcaption><em>March 3, 2026 vs `gaju33333` on Lichess: comeback conversion that climbed from `0.73` expected score at `28...Qxd8` to `1.00` by `34...Qxc7`, after which White resigned.</em></figcaption>
+  <img src="media/2026-03-03-lichess-comeback.gif" alt="Lichess comeback highlight" width="420">
+  <figcaption><em>March 3, 2026 vs <code>gaju33333</code> on Lichess: comeback conversion that climbed from <code>0.73</code> expected score at <code>28...Qxd8</code> to <code>1.00</code> by <code>34...Qxc7</code>, after which White resigned.</em></figcaption>
 </figure>
 
 <figure>
-  <img src="media/3.30-blitz-20-move-mate.gif" alt="March 30 blitz mate highlight">
-  <figcaption><em>March 30, 2026 vs `Kyonorz` on Chess.com: 20-move blitz mate where `20. Rf3` allowed `20...Qg2#`, with the bishop on `h3` protecting the mating queen.</em></figcaption>
+  <img src="media/3.30-blitz-20-move-mate.gif" alt="March 30 blitz mate highlight" width="420">
+  <figcaption><em>March 30, 2026 vs <code>Kyonorz</code> on Chess.com: 20-move blitz mate where <code>20. Rf3</code> allowed <code>20...Qg2#</code>, with the bishop on <code>h3</code> protecting the mating queen.</em></figcaption>
 </figure>
 
 ## Next goals
