@@ -247,11 +247,15 @@ Current `analysis/*.md` artifacts include a high-confidence conversion sequence 
 
 Visual highlights:
 
-![Lichess comeback highlight](media/2026-03-03-lichess-comeback.gif)
-*March 3, 2026 vs `gaju33333` on Lichess: comeback conversion that climbed from `0.73` expected score at `28...Qxd8` to `1.00` by `34...Qxc7`, after which White resigned.*
+<figure>
+  <img src="media/2026-03-03-lichess-comeback.gif" alt="Lichess comeback highlight">
+  <figcaption><em>March 3, 2026 vs `gaju33333` on Lichess: comeback conversion that climbed from `0.73` expected score at `28...Qxd8` to `1.00` by `34...Qxc7`, after which White resigned.</em></figcaption>
+</figure>
 
-![March 30 blitz mate highlight](media/3.30-blitz-20-move-mate.gif)
-*March 30, 2026 vs `Kyonorz` on Chess.com: 20-move blitz mate where `20. Rf3` allowed `20...Qg2#`, with the bishop on `h3` protecting the mating queen.*
+<figure>
+  <img src="media/3.30-blitz-20-move-mate.gif" alt="March 30 blitz mate highlight">
+  <figcaption><em>March 30, 2026 vs `Kyonorz` on Chess.com: 20-move blitz mate where `20. Rf3` allowed `20...Qg2#`, with the bishop on `h3` protecting the mating queen.</em></figcaption>
+</figure>
 
 ## Next goals
 - Fix shell command UX around `--ollama-max-tokens` with shell-safe docs/examples (single-line first, multiline with explicit continuation).
